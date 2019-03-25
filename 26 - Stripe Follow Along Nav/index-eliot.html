@@ -229,16 +229,16 @@
 
   function handleEnter() {
     this.classList.add('trigger-enter');
-    setTimeout(() => this.classList.add('trigger-enter-active'), 150);
+    setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active'), 150);
     background.classList.add('open');
 
     const dropdown = this.querySelector('.dropdown');
     //console.log(dropdown);
 
-    const dropdownCoords = dropdown.getBoundClientRect();
+    const dropdownCoords = dropdown.getBoundingClientRect();
     //console.log(dropdownCoords);
 
-    const.navCoords = nav.getBoundingClientRect();
+    const navCoords = nav.getBoundingClientRect();
     //console.log(navCoords);
 
     const coords = {
@@ -248,7 +248,12 @@
       left: dropdownCoords.left - navCoords.left,
     };
 
+    background.style.setProperty('width', `${coords.width}px`);
+    background.style.setProperty('height', `${coords.height}px`);
+    background.style.setProperty('transorm', `translate(${coords.left}px, ${coords.top}px)`);
   }
+
+
 
   function handleLeave() {
     this.classList.remove('trigger-enter', 'trigger-enter-active');
